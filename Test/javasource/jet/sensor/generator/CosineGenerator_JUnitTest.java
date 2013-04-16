@@ -12,7 +12,7 @@ public class CosineGenerator_JUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        this.cosineGenerator = new CosineGenerator();
+        this.cosineGenerator = new CosineGenerator(SensorConfiguration_JUnitTest.getSensorConfiguration());
     }
 
     @Test

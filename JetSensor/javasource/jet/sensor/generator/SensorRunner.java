@@ -1,13 +1,20 @@
 package jet.sensor.generator;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class SensorRunner {
 
     private final List<AbstractGenerator> generators = new ArrayList<>();
+    private SensorConfiguration sensorConfiguration;
 
     public SensorRunner() {
+
+        readConfiguration();
         createSensors();
         startSensors();
 
@@ -26,6 +33,17 @@ public class SensorRunner {
         }
     }
 
+    private void readConfiguration() {
+        try (InputStream inStream = new FileInputStream("sensor.properties")) {
+            final Properties properties = new Properties();
+            properties.load(inStream);
+
+            this.sensorConfiguration = new SensorConfiguration(properties);
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private boolean isWorkDone() {
         boolean result = true;
         for (final AbstractGenerator generator : this.generators) {
@@ -36,8 +54,8 @@ public class SensorRunner {
     }
 
     public void createSensors() {
-        this.generators.add(new CosineGenerator());
-        this.generators.add(new SineGenerator());
+        this.generators.add(new CosineGenerator(this.sensorConfiguration));
+        this.generators.add(new SineGenerator(this.sensorConfiguration));
     }
 
     public void startSensors() {

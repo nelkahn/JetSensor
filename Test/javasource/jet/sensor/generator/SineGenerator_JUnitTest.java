@@ -12,7 +12,7 @@ public class SineGenerator_JUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        this.sineGenerator = new SineGenerator();
+        this.sineGenerator = new SineGenerator(SensorConfiguration_JUnitTest.getSensorConfiguration());
     }
 
     @Test

@@ -4,6 +4,10 @@ public class SineGenerator extends AbstractGenerator {
 
     final static int MEASURES_PER_REVOLUTION = 1000;
 
+    public SineGenerator(final SensorConfiguration sensorConfiguration) {
+        super(sensorConfiguration);
+    }
+
     @Override
     public Double getSensorReading(final long readingCount) {
 

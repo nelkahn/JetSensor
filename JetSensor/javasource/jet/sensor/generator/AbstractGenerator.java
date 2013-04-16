@@ -11,7 +11,13 @@ import java.math.RoundingMode;
  */
 public abstract class AbstractGenerator implements Runnable {
 
+    private static final int MAX_RUNS = 10;
     private boolean isFinished = false;
+    private final SensorConfiguration sensorConfiguration;
+
+    public AbstractGenerator(final SensorConfiguration sensorConfiguration) {
+        this.sensorConfiguration = sensorConfiguration;
+    }
 
     /**
      * Get the sensor reading.
@@ -43,7 +49,7 @@ public abstract class AbstractGenerator implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i <= 1000; i++) {
+        for (int i = 0; i <= MAX_RUNS; i++) {
             final Double result = getSensorReading(i);
             System.err.println("[AbstractGenerator] run - " + getSensorName() + " :: " + i + " :: " + result);
         }
